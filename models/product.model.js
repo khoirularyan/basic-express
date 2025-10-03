@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+//schema atau struktur data
 const productSchema = new mongoose.Schema(
   {
     name: {
@@ -23,6 +24,7 @@ const productSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+//model
 const Product =
   mongoose.models.product || mongoose.model("Product", productSchema);
 export default Product;
