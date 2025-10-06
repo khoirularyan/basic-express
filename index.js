@@ -49,6 +49,24 @@ app.get("/api/product/:id", async (req, res) => {
   }
 });
 
+//update produk by id
+app.put("/api/product/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const product = await Product.findByIdAndUpdate(id, req.body);
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    const updatedproduct = await Product.findByIdAndUpdate(id);
+    res.status(200).json(updatedproduct);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 //connect to database
 mongoose
   .connect(
