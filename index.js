@@ -5,11 +5,16 @@ const app = express();
 
 //middleware
 app.use(express.json());
+//untuk menerima data dari body parsing data
+app.use(express.urlencoded({ extended: true }));
 
 //menyalakan server
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
 });
+
+//routes
+app.use("/api/products", ProductRoutes);
 
 //routes atau endpoint
 app.get("/", (req, res) => {
@@ -37,7 +42,7 @@ app.get("/api/products", async (req, res) => {
 });
 
 //read produk by id
-app.get("/api/product/:id", async (req, res) => {
+app.get("/api/products/:id", async (req, res) => {
   try {
     const product = await Product.findById(req.params.id); //find product by id
     if (!product) {
@@ -50,7 +55,7 @@ app.get("/api/product/:id", async (req, res) => {
 });
 
 //update produk by id
-app.put("/api/product/:id", async (req, res) => {
+app.put("/api/products/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -68,7 +73,7 @@ app.put("/api/product/:id", async (req, res) => {
 });
 
 //delete produk by id
-app.delete("/api/product/:id", async (req, res) => {
+app.delete("/api/products/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
