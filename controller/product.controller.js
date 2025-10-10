@@ -1,4 +1,4 @@
-const Product = require("../models/product.model.js");
+import Product from "../model/Product.route.js";
 
 const getProduct = async (req, res) => {
   try {
@@ -21,5 +21,48 @@ const getProductById = async (req, res) => {
   }
 };
 
-module.exports = { getProduct, getProductById };
-// export { getProduct };
+const createProduct = async (req, res) => {
+  try {
+    const product = await Product.create(req.body);
+    res.status(201).json(product); //menyalakan server
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const updateProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const product = await Product.findByIdAndUpdate(id, req.body);
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    const updatedproduct = await Product.findByIdAndUpdate(id);
+    res.status(200).json(updatedproduct);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const deleteProduct = async (req, res) => {
+  try {
+    const product = await Product.findByIdAndDelete(req.params.id); //delete product by id
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    res.status(204).send();
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+module.exports = {
+  getProduct,
+  getProductById,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+};
+// export { getProduct }

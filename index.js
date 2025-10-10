@@ -1,6 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
 import Product from "./models/product.model.js";
+import ProductRoutes from "./routes/product.route.js";
+
 const app = express();
 
 //middleware
@@ -18,73 +20,7 @@ app.use("/api/products", ProductRoutes);
 
 //routes atau endpoint
 app.get("/", (req, res) => {
-  res.send("Hello, this is from Express.jsadfs! ssdfsdffasdfsadfsdnode");
-});
-
-//route post produk
-app.post("/api/products", async (req, res) => {
-  try {
-    const product = await Product.create(req.body);
-    res.status(201).json(product); //menyalakan server
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
-//read produk
-app.get("/api/products", async (req, res) => {
-  try {
-    const products = await Product.find(); //find all data
-    res.status(200).json(products);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
-//read produk by id
-app.get("/api/products/:id", async (req, res) => {
-  try {
-    const product = await Product.findById(req.params.id); //find product by id
-    if (!product) {
-      return res.status(404).json({ message: "Product not found" });
-    }
-    res.status(200).json(product);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
-//update produk by id
-app.put("/api/products/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const product = await Product.findByIdAndUpdate(id, req.body);
-
-    if (!product) {
-      return res.status(404).json({ message: "Product not found" });
-    }
-
-    const updatedproduct = await Product.findByIdAndUpdate(id);
-    res.status(200).json(updatedproduct);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
-//delete produk by id
-app.delete("/api/products/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const product = await Product.findByIdAndDelete(id);
-    if (!product) {
-      return res.status(404).json({ message: "Product not found" });
-    }
-    res.status(200).json({ message: "delete success" });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+  res.send("Hello, this is from Express.js!");
 });
 
 //connect to database
