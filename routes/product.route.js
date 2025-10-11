@@ -1,17 +1,20 @@
-import Router from "express";
-import Product from "../models/product.model.js";
-import router from "./product.route.js";
+import { Router } from "express";
 import {
   getProduct,
+  getProductById,
   createProduct,
   updateProduct,
   deleteProduct,
 } from "../controller/product.controller.js";
 
+//inisialisasi router
+const router = Router();
+
+//get all produk
 router.get("/", getProduct);
 
 //get produk by id
-router.get("/:id", getProduct);
+router.get("/:id", getProductById);
 
 //create produk
 router.post("/", createProduct);
@@ -23,4 +26,4 @@ router.put("/:id", updateProduct);
 
 router.delete("/:id", deleteProduct);
 
-module.exports = router;
+export default router;
