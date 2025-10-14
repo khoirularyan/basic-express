@@ -5,7 +5,7 @@ import ProductRoutes from "./routes/product.route.js";
 
 dotenv.config();
 const app = express();
-//semoga webhook berhasil
+
 //middleware
 app.use(express.json());
 //untuk menerima data dari body parsing data
@@ -31,3 +31,5 @@ mongoose
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+//test webhook kirim wa
